@@ -1,0 +1,28 @@
+version: '3.10'
+
+services:
+  web:
+    build: ./
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/navis-imperialis/
+      # https://docs.docker.com/storage/volumes/
+      # In the case of named volumes, the first field is the name of the volume, and is unique on a given host machine. For anonymous volumes, the first field is omitted.
+      # The second field is the path where the file or directory are mounted in the container.
+    ports:
+      - 8000:8000
+    env_file:
+      - .env.dev
+    depends_on:
+          - db
+  db:
+      image: postgres:13.0-alpine
+      volumes:
+        - /postgres_data:/var/lib/postgresql/data/
+      environment:
+        - POSTGRES_USER=hello_django
+        - POSTGRES_PASSWORD=hello_django
+        - POSTGRES_DB=hello_django_dev
+
+volumes:
+  postgres_data:
