@@ -44,6 +44,7 @@ RUN addgroup -S app && adduser -S app -G app
 ENV HOME=home/ismaeljma/PycharmProjects/navis-imperialis
 ENV APP_HOME=/home/ismaeljma/PycharmProjects/navis-imperialis/web
 RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/staticfiles
 WORKDIR $APP_HOME
 
 # install dependencies
